@@ -13,13 +13,14 @@ defmodule Games.Wordle do
 
   ## Examples
 
-      iex> Games.Wordle.feedback("ABCDE", "AABAA")
+      iex> Games.Wordle.feedback('ABCDE', 'AABAA')
       [:green, :gray, :yellow, :gray, :gray]
 
   """
   @word_list ["TOAST", "TARTS", "HELLO", "BEATS", "APPLE", "BEACH", "CLOUD", "DANCE", "ELEPH", "FIFTH", "GRAPE",
     "HAPPY", "IGLOO", "JOLLY", "KNOTS", "LUNAR", "MANGO", "NOBLE", "OCEAN", "PIANO", "QUARK", "RIDER", "SHINY", "TRUMP", "UNZIP", "VIVID",
     "WRIST", "XEROX", "YACHT", "ZEBRA"]
+
 
   @doc """
   Feedback for `guess` based on `answer`.
