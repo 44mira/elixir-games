@@ -1,7 +1,6 @@
 defmodule Games.GuessingGame do
   @moduledoc """
-  Guessing game
-
+  Guessing game played on the CLI after a call to Games.GuessingGame.play/0
   """
 
   @doc """
@@ -12,9 +11,10 @@ defmodule Games.GuessingGame do
   `attempts` tracks 5 attempts before player loses.
 
   ## Examples
-    iex> Games.GuessingGame.play()
-    Guess a number between 1 and 10: 3
-    You win!
+
+      iex> Games.GuessingGame.play()
+      Guess a number between 1 and 10: 3
+      You win!
 
   """
   def play(), do: play_rec(5)
