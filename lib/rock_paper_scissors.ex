@@ -16,6 +16,7 @@ defmodule Games.RockPaperScissors do
       :ok
 
   """
+  @spec play :: :ok
   def play() do
     bot    = Enum.random([:rock, :paper, :scissors])
     player = IO.gets("Choose rock, paper, or scissors: ") |> String.trim |> String.to_atom

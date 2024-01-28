@@ -72,6 +72,8 @@ defmodule Games.Wordle do
       :ok
 
   """
+  @spec play() :: :ok
+  @spec play(nil | charlist()) :: :ok
   @spec play(nil | charlist(), integer()) :: :ok
   def play(answer \\ nil, rounds \\ 6)
   def play(answer, 0), do: IO.puts("You lost! The word was #{answer}.")
