@@ -21,6 +21,7 @@ defmodule Games.Wordle do
     "HAPPY", "IGLOO", "JOLLY", "KNOTS", "LUNAR", "MANGO", "NOBLE", "OCEAN", "PIANO", "QUARK", "RIDER", "SHINY", "TRUMP", "UNZIP", "VIVID",
     "WRIST", "XEROX", "YACHT", "ZEBRA"]
 
+  @type color :: :green | :yellow | :gray
 
   @doc """
   Feedback for `guess` based on `answer`.
@@ -33,32 +34,23 @@ defmodule Games.Wordle do
       [:yellow, :yellow, :green, :yellow, :gray]
 
   """
-  @spec feedback(charlist(), charlist()) :: list(atom())
+  @spec feedback(charlist(), charlist()) :: list(color)
   def feedback(answer, guess) do
     first_pass = Enum.zip([answer, guess])
-    |> Enum.map(fn a ->
-      case a do
-        {b, b} -> :green
-        _other -> a
-      end
+    |> Enum.map(fn
+      {b, b} -> :green
+      other  -> other
     end)
 
     counts = for {k, _} <- first_pass, reduce: %{} do
-      acc -> Map.update(acc, k, 1, & &1+1)
+      acc -> Map.update(acc, k, 1, & &1 + 1)
     end
 
     {a, _} = first_pass
-    |> Enum.map_reduce(counts, fn x, acc ->
-      if x != :green do
-        {_, v} = x
-        if Map.get(acc, v, 0) > 0 do
-          {:yellow, Map.update!(acc, v, & &1-1)}
-        else
-          {:gray, acc}
-        end
-      else
-        {:green, acc}
-      end
+    |> Enum.map_reduce(counts, fn
+      :green, acc -> {:green, acc}
+      {_, v}, acc ->
+        if Map.get(acc, v, 0) > 0, do: {:yellow, Map.update!(acc, v, & &1 - 1)}, else: {:gray, acc}
     end)
     a
   end
@@ -88,20 +80,16 @@ defmodule Games.Wordle do
 
     guess = IO.gets("Input guess: ") |> String.trim |> String.upcase
     result = feedback(answer, String.to_charlist(guess))
-    cond do
-      Enum.all?(result, & &1 == :green) -> IO.puts("\n" <> IO.ANSI.magenta_background <> "Congratulations! You win." <> IO.ANSI.reset)
-      true ->
-        result
-        |> Enum.map(fn color ->
-          case color do
-            :green -> IO.ANSI.green() <> "green" <> IO.ANSI.reset
-            :yellow -> IO.ANSI.yellow() <> "yellow" <> IO.ANSI.reset
-            :gray -> IO.ANSI.light_black() <> "gray" <> IO.ANSI.reset
-          end
-        end)
-        |> Enum.join(" | ")
-        |> IO.puts
-        play(answer, rounds-1)
+    if Enum.all?(result, & &1 == :green) do
+      IO.puts("\n" <> IO.ANSI.magenta_background <> "Congratulations! You win." <> IO.ANSI.reset)
+    else
+      Enum.map_join(result, " | ", fn
+        :green -> IO.ANSI.green() <> "green" <> IO.ANSI.reset
+        :yellow -> IO.ANSI.yellow() <> "yellow" <> IO.ANSI.reset
+        :gray -> IO.ANSI.light_black() <> "gray" <> IO.ANSI.reset
+      end)
+      |> IO.puts
+      play(answer, rounds - 1)
     end
   end
 end

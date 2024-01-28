@@ -31,10 +31,10 @@ defmodule Games.GuessingGame do
       guess == target -> IO.puts "You win!"
       guess < target  ->
         IO.puts "Too Low!"
-        play_rec(attempts-1, target)
+        play_rec(attempts - 1, target)
       guess > target  ->
         IO.puts "Too High!"
-        play_rec(attempts-1, target)
+        play_rec(attempts - 1, target)
     end
   end
 end
