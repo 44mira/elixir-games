@@ -88,7 +88,7 @@ defmodule Games.Wordle do
     guess = IO.gets("Input guess: ") |> String.trim |> String.upcase
     result = feedback(answer, String.to_charlist(guess))
     cond do
-      Enum.all?(result, & &1 == :green) -> IO.puts("\n" <> IO.ANSI.encircled <> "WOOHOO YOU WIN!" <> IO.ANSI.reset)
+      Enum.all?(result, & &1 == :green) -> IO.puts("\n" <> IO.ANSI.magenta_background <> "Congratulations! You win." <> IO.ANSI.reset)
       true ->
         result
         |> Enum.map(fn color ->
