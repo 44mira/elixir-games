@@ -8,8 +8,8 @@ defmodule Games.Wordle do
     - Gray:   Incorrect Letter
 
   ## Functions
-    - play/0: starts a game of Wordle
-    - feedback/2: returns the feedback of an `answer` against a `turn`
+    - `play/0`: starts a game of Wordle
+    - `feedback/2`: returns the feedback of an `answer` against a `turn`
 
   ## Examples
 

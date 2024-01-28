@@ -1,6 +1,6 @@
 defmodule Games.RockPaperScissors do
   @moduledoc """
-  Rock paper scissors game played on the CLI after a call to Games.RockPaperScissors.play/0
+  Rock paper scissors game played on the CLI after a call to `Games.RockPaperScissors.play/0`
   """
 
   @doc """

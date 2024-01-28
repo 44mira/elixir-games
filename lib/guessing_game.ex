@@ -1,12 +1,12 @@
 defmodule Games.GuessingGame do
   @moduledoc """
-  Guessing game played on the CLI after a call to Games.GuessingGame.play/0
+  Guessing game played on the CLI after a call to `Games.GuessingGame.play/0`
   """
 
   @doc """
   Generates a random number from 1 to 10, player wins on correct guess.
 
-  Starts a recursive call to play_rec/2 to abstract away `target`.
+  Starts a recursive call to `play_rec/2` to abstract away `target`.
   `target` stores the initial rolled value.
   `attempts` tracks 5 attempts before player loses.
 
