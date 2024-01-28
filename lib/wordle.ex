@@ -64,8 +64,9 @@ defmodule Games.Wordle do
   end
 
   @doc """
-  Main play/2 function.
+  Main `play/2` function.
   `answer` and `rounds` parameters can be used to determine starting values, effectively rigging the game for testing.
+
   `answer` only takes charlists and game defaults at a maximum of 6 rounds before losing.
 
   ## Examples
