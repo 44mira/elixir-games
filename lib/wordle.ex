@@ -17,6 +17,7 @@ defmodule Games.Wordle do
       [:green, :gray, :yellow, :gray, :gray]
 
   """
+  alias Games.Score
   @word_list ["TOAST", "TARTS", "HELLO", "BEATS", "APPLE", "BEACH", "CLOUD", "DANCE", "ELEPH", "FIFTH", "GRAPE",
     "HAPPY", "IGLOO", "JOLLY", "KNOTS", "LUNAR", "MANGO", "NOBLE", "OCEAN", "PIANO", "QUARK", "RIDER", "SHINY", "TRUMP", "UNZIP", "VIVID",
     "WRIST", "XEROX", "YACHT", "ZEBRA"]
@@ -83,6 +84,7 @@ defmodule Games.Wordle do
     guess = IO.gets("Input guess: ") |> String.trim |> String.upcase
     result = feedback(answer, String.to_charlist(guess))
     if Enum.all?(result, & &1 == :green) do
+      Score.add_score(:wordle_win)
       IO.puts("\n" <> IO.ANSI.magenta_background <> "Congratulations! You win." <> IO.ANSI.reset)
     else
       Enum.map_join(result, " | ", fn

@@ -2,6 +2,7 @@ defmodule Games.GuessingGame do
   @moduledoc """
   Guessing game played on the CLI after a call to `Games.GuessingGame.play/0`
   """
+  alias Games.Score
 
   @doc """
   Generates a random number from 1 to 10, player wins on correct guess.
@@ -28,7 +29,9 @@ defmodule Games.GuessingGame do
     |> String.to_integer
 
     cond do
-      guess == target -> IO.puts "You win!"
+      guess == target ->
+        Score.add_score(:guess_win)
+        IO.puts "You win!"
       guess < target  ->
         IO.puts "Too Low!"
         play_rec(attempts - 1, target)

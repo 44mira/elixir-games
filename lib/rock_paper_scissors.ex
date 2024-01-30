@@ -2,6 +2,7 @@ defmodule Games.RockPaperScissors do
   @moduledoc """
   Rock paper scissors game played on the CLI after a call to `Games.RockPaperScissors.play/0`
   """
+  alias Games.Score
 
   @doc """
   Generates a choice between rock/paper/scissors and gets game result based on `player` choice.
@@ -24,9 +25,15 @@ defmodule Games.RockPaperScissors do
     IO.puts("Bot throws #{Atom.to_string(bot)}!")
     case {bot, player} do
       {n, n} -> "It's a tie!"
-      {:rock, :paper} -> "You win! Paper beats rock."
-      {:paper, :scissors} -> "You win! Scissors beats paper."
-      {:scissors, :rock} -> "You win! Rock beats scissors."
+      {:rock, :paper} ->
+        Score.add_score(:rps_win)
+        "You win! Paper beats rock."
+      {:paper, :scissors} ->
+        Score.add_score(:rps_win)
+        "You win! Scissors beats paper."
+      {:scissors, :rock} ->
+        Score.add_score(:rps_win)
+        "You win! Rock beats scissors."
       {a, b} -> "You lose! #{Atom.to_string(a) |> String.capitalize} beats #{Atom.to_string(b)}."
     end
     |> IO.puts
